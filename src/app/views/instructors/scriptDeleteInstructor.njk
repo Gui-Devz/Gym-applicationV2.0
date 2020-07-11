@@ -1,0 +1,11 @@
+<script>
+   const deleteForm = document.querySelector(".delete")
+
+    deleteForm.addEventListener("submit", (event) =>{
+        const confirmation = confirm("Deseja excluir esse cadastro?!");
+
+        if (!confirmation) {
+            event.preventDefault();
+        } 
+    })
+</script>

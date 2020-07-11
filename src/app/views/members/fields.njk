@@ -1,0 +1,56 @@
+    <div class="item">
+        <div>Avatar URL:</div>
+        <div><input type="url" name="avatar_url" placeholder="https://" value="{{member.avatar_url}}" required></div>
+    </div>
+
+    <div class="item">
+        <div>Nome:</div>
+        <div><input type="text" name="name" placeholder="Seu nome aqui" value="{{member.name}}"></div>
+    </div>
+
+    <div class="item">
+        <div>Email:</div>
+        <div><input type="email" name="email" placeholder="Seu e-mail aqui" value="{{member.email}}"></div>
+    </div>
+
+    <div class="item">
+        <div>Data de nascimento:</div>
+        <div><input type="date" name="birth" value="{{member.birth}}"></div>
+    </div>
+
+    <div class="item">
+        <div>Cidade:</div>
+        <div><select name="cities">
+            <option value="Osasco" {% if member.cities == "Osasco" %} selected {% endif %}>Osasco</option>
+            <option value="São Paulo" {% if member.cities == "São Paulo" %} selected {% endif %}>São Paulo</option>
+            <option value="Barueri" {% if member.cities == "Barueri" %} selected {% endif %}>Barueri</option>
+            <option value="Guarulhos" {% if member.cities == "Guarulhos" %} selected {% endif %}>Guarulhos</option>
+            <option value="Santos" {% if member.cities == "Santos" %} selected {% endif %}>Santos</option>
+            <option value="Peruíbe" {% if member.cities == "Peruíbe" %} selected {% endif %}>Peruíbe</option>
+        </select></div>
+        
+    </div>
+    
+    <div class="item">
+        <div>Sexo:</div>
+        <div>
+            <span><input type="radio" name="gender" value="M" {% if member.gender == "M" %}
+                checked
+            {% endif %}  >Masculino</span>
+            <span><input type="radio" name="gender" value="F" {% if member.gender == "F" %}
+                checked
+            {% endif %}>Feminino</span>
+        </div>
+    </div>
+
+    <div class="item">
+        <div>Atividades de interesse:</div>
+        <div><input class="activities-member" type="text" name="activities" placeholder="Separe as atividades por vírgula" value="{{member.activities}}" ></div>
+    </div>
+
+
+
+    
+
+
+

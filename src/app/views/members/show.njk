@@ -1,0 +1,62 @@
+{% extends "../layout.njk" %}
+
+{% block head %}
+    <title>Membros</title>
+{% endblock head %}
+
+{% block content %}
+    <div class="card">
+        <section class="avatar"
+                style="background-image: url({{member.avatar_url}});">
+        </section>
+        <section class="details">
+            <h3>Detalhes</h3>
+
+            <div class="item">
+                <div>Membro:</div>
+                <div>{{member.name}}</div>
+            </div>
+
+            <div class="item">
+                <div>E-mail:</div>
+                <div>{{member.email}}</div>
+            </div>
+
+            <div class="item">
+                <div>Data de aniversário:</div>
+                <div>{{member.birth}}</div>
+            </div>
+
+            <div class="item">
+                <div>Cidade:</div>
+                <div>{{member.cities}}</div>
+            </div>
+            
+            <div class="item">
+                <div>Sexo:</div>
+                <div>{{ "Masculino" if member.gender == "M" else "Feminino"}}</div>
+            </div>
+
+            <div class="item">
+                <div>Atividades de interesse:</div>
+                <div>
+
+                {% for activity in member.activities %}
+                    <span>{{activity}}</span>
+                {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="item">
+                <div>Desde</div>
+                <div>{{member.created_at}}</div>
+            </div>
+            <div class="item">
+                <a href="{{member.id}}/edit" ><div class="button">Editar</div></a>
+            </div>
+        </section>
+    </div>
+
+
+{% endblock content %}

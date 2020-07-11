@@ -1,0 +1,35 @@
+{% extends "../layout.njk" %}
+
+{% block head %}
+    <title>Membros</title>
+{% endblock head %}
+
+{% block content %}
+    <div class="card table-container">
+        <table width="100%">
+            <a href="members/create" target="_blank" rel="Button to go to create page">Cadastrar novo</a>
+            <thead>
+                <tr>
+                    <th>Membros</th>
+                    <th>E-mail</th>
+                    <th>Idade</th>
+                    <th>Cidade</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for member in members %}
+                <tr>
+                    <td><span style="background-image: url({{member.avatar_url}})"></span>{{member.name}}</td>
+                    <td>{{member.email}}</td>
+                    <td>{{member.age}}</td>
+                    <td>{{member.cities}}</td>
+                    <td><a href="/members/{{member.id}}">Ver</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock content %}

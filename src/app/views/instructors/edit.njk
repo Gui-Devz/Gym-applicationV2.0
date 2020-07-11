@@ -1,0 +1,40 @@
+{% extends "../layout.njk" %}
+
+{% block head %}
+    <title>Editando seu cadastro</title>
+{% endblock head %}
+
+
+{% block content%}
+
+<div class="card">
+    <section class="avatar" style="background-image: url({{instructor.avatar_url}});">
+    </section>
+    <section>
+        <h3 class="details">Editando cadastro</h3>
+
+        <form class="details" method="POST" action="/instructors?_method=PUT">
+        
+            {% include 'instructors/fields.njk'%}
+
+            <input type="hidden" name="id" value="{{instructor.id}}">
+
+            <div class="item">
+                <button class="button" type="submit">Salvar</button>
+            </div>
+
+        </form>
+
+        <form class="delete" method="POST" action="/instructors?_method=DELETE">
+            <input type="hidden" name="id" value="{{instructor.id}}">
+            <div class="item">
+                <div><button class="button delete" type="submit">deletar</button></div>
+            </div>
+        </form>
+    </section>
+    
+    {% include './instructors/scriptDeleteInstructor.njk'%}
+</div>
+
+
+{% endblock content %}

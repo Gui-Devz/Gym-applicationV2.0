@@ -1,0 +1,31 @@
+{% extends "../layout.njk" %}
+
+{% block head %}
+    <title>Instrutores</title>
+{% endblock head %}
+
+{% block content %}
+    <div class="card table-container">
+        <table width="100%">
+            <a href="instructors/create" target="_blank" rel="Button to go to create page">Cadastrar novo</a>
+            <thead>
+                <tr>
+                    <th>Instrutores</th>
+                    <th>Atendimento</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for instructor in instructors %}
+                <tr>
+                    <td><span style="background-image: url({{instructor.avatar_url}})"></span>{{instructor.name}}</td>
+                    <td>{{instructor.services}}</td>
+                    <td><a href="/instructors/{{instructor.id}}">Ver</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock content %}
