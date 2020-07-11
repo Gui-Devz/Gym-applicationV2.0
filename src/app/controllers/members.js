@@ -1,4 +1,4 @@
-const utils = require("../scripts/utils");
+const utils = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
