@@ -1,5 +1,5 @@
 module.exports = {
-  age: function age(timestamp) {
+  age(timestamp) {
     const today = new Date();
     const birthDate = new Date(timestamp);
 
@@ -14,7 +14,7 @@ module.exports = {
     return age;
   },
 
-  formatBrowser: (timestamp) => {
+  formatBrowser(timestamp) {
     const date = new Date(timestamp);
     const day = `0${date.getUTCDate()}`.slice(-2);
     const month = `0${date.getUTCMonth() + 1}`.slice(-2);
@@ -29,7 +29,7 @@ module.exports = {
     };
   },
 
-  positioningID: (array) => {
+  positioningID(array) {
     if (array.length == 0 || (array.length == 1 && array[0].id != 1)) {
       return 1;
     }
