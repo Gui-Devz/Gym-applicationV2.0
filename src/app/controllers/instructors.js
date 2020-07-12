@@ -1,13 +1,14 @@
-const { age, formatBrowser } = require("../scripts/utils");
+const { age, formatBrowser } = require("../../lib/utils");
 const utils = require("../../lib/utils");
+const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    return;
+    return res.send("configuring server");
   },
 
   create(req, res) {
-    return;
+    return res.render("instructors/create");
   },
 
   post(req, res) {
@@ -21,9 +22,31 @@ module.exports = {
       }
     }
 
-    let { avatar_url, birth, name, services, gender } = req.body;
+    const query = `
+      INSERT INTO instructors (
+        name,
+        avatar_url,
+        gender,
+        services,
+        birth,
+        created_at
+      ) VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id
+    `;
 
-    return;
+    const value = [
+      req.body.name,
+      req.body.avatar_url,
+      req.body.gender,
+      req.body.services,
+      formatBrowser(req.body.birth).iso,
+      formatBrowser(Date.now).iso,
+    ];
+
+    db.query(query, values, function (err, results) {
+      console.log(err);
+      console.log(results);
+    });
   },
 
   show(req, res) {
