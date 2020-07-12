@@ -4,7 +4,11 @@ const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    return res.render("instructors/index");
+    db.query(`SELECT * FROM instructors`, function (err, results) {
+      if (err) return res.send("Fuu... Something gone wrong!");
+
+      return res.render("instructors/index", { instructors: results.rows });
+    });
   },
 
   create(req, res) {
@@ -44,9 +48,11 @@ module.exports = {
     ];
 
     db.query(query, values, function (err, results) {
-      console.log(err);
-      console.log(results);
-      return;
+      if (err) {
+        return res.send(`Fuu... Something gone wrong!`);
+      } else {
+        return res.redirect(`/instructors/${results.rows[0].id}`);
+      }
     });
   },
 
