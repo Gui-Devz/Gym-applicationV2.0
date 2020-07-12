@@ -4,7 +4,7 @@ const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    return res.send("configuring server");
+    return res.render("instructors/index");
   },
 
   create(req, res) {
@@ -46,6 +46,7 @@ module.exports = {
     db.query(query, values, function (err, results) {
       console.log(err);
       console.log(results);
+      return;
     });
   },
 
