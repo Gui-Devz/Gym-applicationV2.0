@@ -34,13 +34,13 @@ module.exports = {
       RETURNING id
     `;
 
-    const value = [
-      req.body.name,
-      req.body.avatar_url,
-      req.body.gender,
-      req.body.services,
-      formatBrowser(req.body.birth).iso,
-      formatBrowser(Date.now).iso,
+    const values = [
+      urlEncoded.name,
+      urlEncoded.avatar_url,
+      urlEncoded.gender,
+      urlEncoded.services,
+      formatBrowser(urlEncoded.birth).iso,
+      formatBrowser(Date.now()).iso,
     ];
 
     db.query(query, values, function (err, results) {
