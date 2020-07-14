@@ -1,13 +1,10 @@
-const { age, formatBrowser } = require("../../lib/utils");
 const utils = require("../../lib/utils");
-const db = require("../../config/db");
+const Instructor = require("../models/instructor");
 
 module.exports = {
   index(req, res) {
-    db.query(`SELECT * FROM instructors`, function (err, results) {
-      if (err) return res.send("Fuu... Something gone wrong!");
-
-      return res.render("instructors/index", { instructors: results.rows });
+    Instructor.all(function (instructors) {
+      return res.render("instructors/index", { instructors });
     });
   },
 
@@ -26,33 +23,8 @@ module.exports = {
       }
     }
 
-    const query = `
-      INSERT INTO instructors (
-        name,
-        avatar_url,
-        gender,
-        services,
-        birth,
-        created_at
-      ) VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING id
-    `;
-
-    const values = [
-      urlEncoded.name,
-      urlEncoded.avatar_url,
-      urlEncoded.gender,
-      urlEncoded.services,
-      formatBrowser(urlEncoded.birth).iso,
-      formatBrowser(Date.now()).iso,
-    ];
-
-    db.query(query, values, function (err, results) {
-      if (err) {
-        return res.send(`Fuu... Something gone wrong!`);
-      } else {
-        return res.redirect(`/instructors/${results.rows[0].id}`);
-      }
+    Instructor.create(urlEncoded, function (instructor) {
+      return res.redirect(`/instructors/${instructor}`);
     });
   },
 
