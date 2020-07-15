@@ -4,7 +4,7 @@ const { age, formatBrowser } = require("../../lib/utils");
 module.exports = {
   all(callback) {
     db.query(`SELECT * FROM instructors`, function (err, results) {
-      if (err) return res.send("Fuu... Something gone wrong!");
+      if (err) throw `Database Error! ${err}`;
 
       callback(results.rows);
     });
@@ -33,7 +33,7 @@ module.exports = {
     ];
 
     db.query(query, values, function (err, results) {
-      if (err) return res.send(`Fuu... Something gone wrong!`);
+      if (err) throw `Database Error! ${err}`;
 
       callback(results.rows[0].id);
     });
@@ -44,9 +44,33 @@ module.exports = {
       err,
       results
     ) {
-      if (err) return res.send("Fuu... Something gone wrong");
+      if (err) throw `Database Error! ${err}`;
 
       callback(results.rows[0]);
+    });
+  },
+
+  update(dataPut, callback) {
+    const query = `
+      UPDATE instructors 
+      SET
+      avatar_url = $1,
+      name = $2,
+      birth = $3,
+      gender = $4,
+      services = $5
+      WHERE id = $6
+    `;
+    const values = [
+      dataPut.avatar_url,
+      dataPut.name,
+      dataPut.birth,
+      dataPut.gender,
+      dataPut.services,
+      dataPut.id,
+    ];
+    db.query(query, [values], function (err, results) {
+      if (err) throw `Database Error! ${err}`;
     });
   },
 };
