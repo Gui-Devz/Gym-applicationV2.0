@@ -74,4 +74,16 @@ module.exports = {
       callback();
     });
   },
+
+  delete(id, callback) {
+    const query = `
+      DELETE FROM instructors WHERE id = $1
+    `;
+
+    db.query(query, [id], function (err, results) {
+      if (err) throw `Database Error! ${err}`;
+
+      callback();
+    });
+  },
 };
