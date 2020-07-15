@@ -49,11 +49,4 @@ module.exports = {
       callback(results.rows[0]);
     });
   },
-
-  edit(id, callback) {
-    db.query("SELECT * FROM instructors WHERE id = $1", [id], function (
-      err,
-      results
-    ) {});
-  },
 };

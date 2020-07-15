@@ -43,7 +43,15 @@ module.exports = {
   },
 
   edit(req, res) {
-    return;
+    const { id } = req.params;
+
+    Instructor.find(id, function (instructor) {
+      if (!instructor) return res.send("Instructor not found!");
+
+      instructor.age = formatBrowser(instructor.birth).iso;
+
+      return res.render("instructors/edit", { instructor });
+    });
   },
 
   put(req, res) {
