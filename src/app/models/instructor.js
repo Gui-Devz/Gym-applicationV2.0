@@ -38,4 +38,22 @@ module.exports = {
       callback(results.rows[0].id);
     });
   },
+
+  find(id, callback) {
+    db.query(`SELECT * FROM instructors WHERE id = $1`, [id], function (
+      err,
+      results
+    ) {
+      if (err) return res.send("Fuu... Something gone wrong");
+
+      callback(results.rows[0]);
+    });
+  },
+
+  edit(id, callback) {
+    db.query("SELECT * FROM instructors WHERE id = $1", [id], function (
+      err,
+      results
+    ) {});
+  },
 };
