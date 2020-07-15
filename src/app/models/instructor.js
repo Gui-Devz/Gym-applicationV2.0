@@ -52,25 +52,26 @@ module.exports = {
 
   update(dataPut, callback) {
     const query = `
-      UPDATE instructors 
-      SET
-      avatar_url = $1,
-      name = $2,
-      birth = $3,
-      gender = $4,
-      services = $5
-      WHERE id = $6
+      UPDATE instructors SET 
+        avatar_url = $1,
+        name = $2,
+        birth = $3,
+        gender = $4 ,
+        services = $5
+      WHERE id=$6
     `;
     const values = [
       dataPut.avatar_url,
       dataPut.name,
-      dataPut.birth,
+      formatBrowser(dataPut.birth).iso,
       dataPut.gender,
       dataPut.services,
       dataPut.id,
     ];
-    db.query(query, [values], function (err, results) {
+    db.query(query, values, function (err, results) {
       if (err) throw `Database Error! ${err}`;
+
+      callback();
     });
   },
 };

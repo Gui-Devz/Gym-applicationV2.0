@@ -23,8 +23,8 @@ module.exports = {
       }
     }
 
-    Instructor.create(urlEncoded, function (instructor) {
-      return res.redirect(`/instructors/${instructor}`);
+    Instructor.create(urlEncoded, function (instructorID) {
+      return res.redirect(`/instructors/${instructorID}`);
     });
   },
 
@@ -65,7 +65,9 @@ module.exports = {
       }
     }
 
-    return;
+    Instructor.update(urlEncoded, function (instructor) {
+      return res.redirect(`/instructors/${urlEncoded.id}`);
+    });
   },
 
   delete(req, res) {
