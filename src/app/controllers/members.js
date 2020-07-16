@@ -1,12 +1,20 @@
-const utils = require("../../lib/utils");
+const Member = require("../models/member");
+const { age, formatBrowser } = require("../../lib/utils");
+const { merge } = require("../../routes");
 
 module.exports = {
   index(req, res) {
-    return;
+    Member.all(function (members) {
+      for (const member of members) {
+        member.age = age(member.birth);
+      }
+
+      return res.render("members/index", { members });
+    });
   },
 
   create(req, res) {
-    return;
+    return res.render("members/create");
   },
 
   post(req, res) {
@@ -20,17 +28,35 @@ module.exports = {
       }
     }
 
-    let { avatar_url, birth, name, services, gender } = req.body;
-
-    return;
+    Member.create(urlEncoded, function (memberID) {
+      return res.redirect(`/members/${memberID}`);
+    });
   },
 
   show(req, res) {
-    return;
+    const { id } = req.params;
+
+    Member.find(id, function (member) {
+      if (!member) return res.send("Member not found!");
+
+      member.age = formatBrowser(member.birth).birthday;
+      member.activities = member.activities.split(",");
+      member.created_at = formatBrowser(member.created_at).format;
+
+      return res.render("members/show", { member });
+    });
   },
 
   edit(req, res) {
-    return;
+    const { id } = req.params;
+
+    Member.find(id, function (member) {
+      if (!member) return res.send("Member not found!");
+
+      member.birth = formatBrowser(member.birth).iso;
+
+      return res.render("members/edit", { member });
+    });
   },
 
   put(req, res) {
@@ -44,10 +70,16 @@ module.exports = {
       }
     }
 
-    return;
+    Member.update(urlEncoded, function (member) {
+      return res.redirect(`/members/${urlEncoded.id}`);
+    });
   },
 
   delete(req, res) {
-    return;
+    const id = req.body.id;
+
+    Member.delete(id, function (member) {
+      return res.redirect("/members");
+    });
   },
 };
