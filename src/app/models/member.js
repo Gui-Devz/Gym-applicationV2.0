@@ -20,8 +20,9 @@ module.exports = {
         city,
         activities,
         birth,
-        created_at
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        created_at,
+        id_instructor
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING id
     `;
 
@@ -34,6 +35,7 @@ module.exports = {
       dataPost.activities,
       formatBrowser(dataPost.birth).iso,
       formatBrowser(Date.now()).iso,
+      dataPost.instructors,
     ];
 
     db.query(query, values, function (err, results) {
@@ -64,8 +66,9 @@ module.exports = {
         gender=$4,
         city=$5,
         activities=$6,
-        birth=$7
-      WHERE id=$8
+        birth=$7,
+        id_instructor=$8
+      WHERE id=$9
     `;
     const values = [
       dataPut.name,
@@ -75,6 +78,7 @@ module.exports = {
       dataPut.cities,
       dataPut.activities,
       formatBrowser(dataPut.birth).iso,
+      dataPut.instructors,
       dataPut.id,
     ];
     db.query(query, values, function (err, results) {
