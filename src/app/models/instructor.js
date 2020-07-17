@@ -3,7 +3,13 @@ const { age, formatBrowser } = require("../../lib/utils");
 
 module.exports = {
   all(callback) {
-    db.query(`SELECT * FROM instructors`, function (err, results) {
+    const query = `
+      SELECT instructors.*, count(members) AS members_count 
+      FROM instructors LEFT JOIN members ON (instructors.id = members.id_instructor)
+      GROUP BY instructors.id
+      ORDER BY members_count DESC
+    `;
+    db.query(query, function (err, results) {
       if (err) throw `Database Error! ${err}`;
 
       callback(results.rows);
