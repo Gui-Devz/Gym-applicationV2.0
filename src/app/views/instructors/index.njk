@@ -11,7 +11,8 @@
             <thead>
                 <tr>
                     <th>Instrutores</th>
-                    <th>Atendimento</th>
+                    <th class="attendance">Atendimento</th>
+                    <th>Alunos</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -19,7 +20,8 @@
             {% for instructor in instructors %}
                 <tr>
                     <td><span style="background-image: url({{instructor.avatar_url}})"></span>{{instructor.name}}</td>
-                    <td>{{instructor.services}}</td>
+                    <td class = "services">{{instructor.services}}</td>
+                    <td>{{instructor.members_count}}</td>
                     <td><a href="/instructors/{{instructor.id}}">Ver</a></td>
                 </tr>
             {% endfor %}

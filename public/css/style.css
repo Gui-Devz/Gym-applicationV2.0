@@ -81,7 +81,7 @@ header {
 }
 
 .card {
-  width: 800px;
+  width: 820px;
   min-height: 400px;
 
   background-color: white;
@@ -278,7 +278,7 @@ input::placeholder {
   margin-top: -5px;
 }
 
-/* Table style */
+/* Table style MEMBERS*/
 
 .table-container {
   display: block;
@@ -294,6 +294,12 @@ table {
 td,
 th {
   border-bottom: 1px solid rgb(202, 198, 198);
+
+  text-align: center;
+}
+
+td:first-child {
+  text-align: left;
 }
 
 tbody tr:last-child td {
@@ -306,7 +312,7 @@ thead th {
 }
 
 table thead tr th {
-  text-align: left;
+  text-align: center;
 }
 
 table thead tr th:first-child {
@@ -319,8 +325,12 @@ table thead tr th:last-child {
   width: 55px;
 }
 
+table thead tr th:nth-child(2) {
+  width: 200px;
+}
+
 table thead tr th:nth-child(3) {
-  width: 55px;
+  width: 85px;
 }
 
 table thead tr th:nth-child(4) {
@@ -360,10 +370,6 @@ table tbody tr {
   box-sizing: border-box;
 }
 
-tbody tr td {
-  padding: 5px;
-}
-
 tbody tr td:first-child {
   display: grid;
   grid-template-columns: 64px 1fr;
@@ -385,6 +391,14 @@ tbody tr td:first-child span {
   background-position-x: center;
   background-position-y: center;
   background-size: cover;
+}
+
+/* TABLE INSTRUCTORS*/
+
+table thead tr .attendance,
+.services {
+  width: 200px;
+  text-align: left;
 }
 
 /*BOTÃO EDITAR*/
