@@ -44,6 +44,17 @@
     </div>
 
     <div class="item">
+        <div>Instrutores:</div>
+        <div><select name="instructors">
+            {% for option in instructorsOptions %}
+
+                <option value="option.id" {% if option.id == member.id_instructor%} selected {% endif %}>{{option.name}}</option>
+
+            {% endfor %}
+        </select></div>
+    </div>
+
+    <div class="item">
         <div>Atividades de interesse:</div>
         <div><input class="activities-member" type="text" name="activities" placeholder="Separe as atividades por vírgula" value="{{member.activities}}" ></div>
     </div>

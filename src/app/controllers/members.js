@@ -55,7 +55,12 @@ module.exports = {
 
       member.birth = formatBrowser(member.birth).iso;
 
-      return res.render("members/edit", { member });
+      Member.instructorsSelectionOptions(function (options) {
+        return res.render("members/edit", {
+          member,
+          instructorsOptions: options,
+        });
+      });
     });
   },
 
