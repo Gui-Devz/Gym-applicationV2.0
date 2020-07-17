@@ -14,7 +14,9 @@ module.exports = {
   },
 
   create(req, res) {
-    return res.render("members/create");
+    Member.instructorsSelectionOptions(function (options) {
+      return res.render("members/create", { instructorsOptions: options });
+    });
   },
 
   post(req, res) {
