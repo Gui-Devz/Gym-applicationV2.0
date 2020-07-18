@@ -16,6 +16,22 @@ module.exports = {
     });
   },
 
+  findBy(filter, callback) {
+    const query = `
+      SELECT instructors.*, count(members) AS members_count 
+      FROM instructors LEFT JOIN members ON (instructors.id = members.id_instructor)
+      WHERE instructors.name ILIKE '%${filter}%'
+      OR instructors.services ILIKE '%${filter}%'
+      GROUP BY instructors.id
+      ORDER BY members_count DESC
+    `;
+    db.query(query, function (err, results) {
+      if (err) throw `Database Error! ${err}`;
+
+      callback(results.rows);
+    });
+  },
+
   create(dataPost, callback) {
     const query = `
       INSERT INTO instructors (
