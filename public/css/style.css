@@ -401,6 +401,42 @@ table thead tr .attendance,
   text-align: left;
 }
 
+/* FILTER OF INSTRUCTORS TABLE*/
+
+.head-index {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+
+  margin-bottom: 32px;
+}
+
+.head-index .button {
+  width: 120px;
+  text-decoration: none;
+}
+
+.head-index .button:hover {
+  background-color: #523aa0;
+}
+
+.card.table-container .head-index #filter {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  align-items: center;
+  gap: 8px;
+}
+
+#filter input {
+  border: 1px solid #eee;
+  border-radius: 4px;
+
+  padding: 6px 8px;
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
 /*BOTÃO EDITAR*/
 
 .item a {

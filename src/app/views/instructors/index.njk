@@ -7,7 +7,25 @@
 {% block content %}
     <div class="card table-container">
         <table width="100%">
-            <a href="/instructors/create" rel="Button to go to create page">Cadastrar novo</a>
+            <div class="head-index">
+                <div>
+                    <a class="button" href="/instructors/create" rel="Button to go to create page">Cadastrar novo</a>
+                </div>
+
+                <div>
+                    <form action="/instructors" method="GET">
+                        <div id="filter">
+                            <div>
+                                <input type="text" name="filter" placeholder="Nome ou Atendimento">
+                            </div>
+                            <div>
+                                <button class="button" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
             <thead>
                 <tr>
                     <th>Instrutores</th>
