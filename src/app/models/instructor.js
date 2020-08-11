@@ -108,4 +108,31 @@ module.exports = {
       callback();
     });
   },
+
+  paginate(args) {
+    let { filter, page, limit, callback } = args;
+
+    limit = 3;
+
+    let offset = Number(limit * (page - 1));
+    console.log(offset);
+
+    let query = `SELECT * FROM instructors
+                  LIMIT ${limit}`;
+    if (filter) {
+      query = `SELECT instructors.*, count(members) AS members_count
+                FROM instructors LEFT JOIN members 
+                ON (instructors.id = members.id)
+                WHERE instructors.name ILIKE '%${filter}%' OR
+                instructors.services ILIKE '%${filter}%'
+                LIMIT ${limit}
+                `;
+    }
+
+    db.query(query, function (err, results) {
+      if (err) throw `Database ERROR ${err}`;
+
+      callback(results.rows);
+    });
+  },
 };
