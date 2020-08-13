@@ -3,23 +3,23 @@ const { age, formatBrowser } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    let { filter, limit } = req.query;
+    let { filter, limit, page } = req.query;
 
-    const page = 1;
+    page = page || 1;
+    limit = limit || 3;
 
-    Instructor.paginate(filter, page, limit, function (instructors) {
-      return res.render("instructors/index", { instructors, filter });
-    });
+    let offset = limit * (page - 1);
 
-    /*   if (filter) {
-      Instructor.paginate(filter, page, limit, function (instructors) {
+    let args = {
+      filter,
+      limit,
+      offset,
+      callback(instructors) {
         return res.render("instructors/index", { instructors, filter });
-      });
-    } else {
-      Instructor.all(function (instructors) {
-        return res.render("instructors/index", { instructors });
-      });
-    } */
+      },
+    };
+
+    Instructor.paginate(args);
   },
 
   create(req, res) {

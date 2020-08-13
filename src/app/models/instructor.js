@@ -110,28 +110,33 @@ module.exports = {
   },
 
   paginate(args) {
-    let { filter, page, limit, callback } = args;
+    let { filter, limit, offset, callback } = args;
 
-    limit = 3;
+    let query = "",
+      filterQuery = "",
+      totalCount = "(SELECT count(*) FROM instructors) AS instructors_count";
 
-    let offset = Number(limit * (page - 1));
-    console.log(offset);
-
-    let query = `SELECT * FROM instructors
-                  LIMIT ${limit}`;
     if (filter) {
-      query = `SELECT instructors.*, count(members) AS members_count
-                FROM instructors LEFT JOIN members 
-                ON (instructors.id = members.id)
-                WHERE instructors.name ILIKE '%${filter}%' OR
-                instructors.services ILIKE '%${filter}%'
-                LIMIT ${limit}
-                `;
+      filterQuery = `WHERE instructors.name ILIKE '%${filter}%' OR
+          instructors.services ILIKE '%${filter}%'`;
+
+      totalCount = `(SELECT count(*) FROM instructors
+          ${filterQuery}) AS instructors_count`;
     }
+    query = `
+      SELECT instructors.*, count(members) AS members_count,
+      ${totalCount}
+      FROM instructors LEFT JOIN members 
+      ON (instructors.id = members.id_instructor)
+      ${filterQuery}
+      GROUP BY instructors.id
+      ORDER BY instructors.id DESC
+      LIMIT ${limit} OFFSET ${offset}`;
 
     db.query(query, function (err, results) {
       if (err) throw `Database ERROR ${err}`;
 
+      console.log(results.rows);
       callback(results.rows);
     });
   },
