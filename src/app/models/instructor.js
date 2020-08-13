@@ -117,11 +117,13 @@ module.exports = {
       totalCount = "(SELECT count(*) FROM instructors) AS instructors_count";
 
     if (filter) {
-      filterQuery = `WHERE instructors.name ILIKE '%${filter}%' OR
-          instructors.services ILIKE '%${filter}%'`;
+      filterQuery = `
+        WHERE instructors.name ILIKE '%${filter}%' OR
+        instructors.services ILIKE '%${filter}%'`;
 
-      totalCount = `(SELECT count(*) FROM instructors
-          ${filterQuery}) AS instructors_count`;
+      totalCount = `
+        (SELECT count(*) FROM instructors
+        ${filterQuery}) AS instructors_count`;
     }
     query = `
       SELECT instructors.*, count(members) AS members_count,
@@ -136,7 +138,6 @@ module.exports = {
     db.query(query, function (err, results) {
       if (err) throw `Database ERROR ${err}`;
 
-      console.log(results.rows);
       callback(results.rows);
     });
   },
