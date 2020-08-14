@@ -30,9 +30,22 @@ function pagination(selectedPage, totalPages) {
   return pages;
 }
 
-const element = document.querySelector(".paginate");
+const paginate = document.querySelector(".paginate");
 
-const totalPages = element.dataset.total;
-const page = element.dataset.page;
+const totalPages = +paginate.dataset.total;
+const pages = +paginate.dataset.page;
 
-console.log(pagination(page, totalPages));
+let element = "";
+let arrayPages = pagination(pages, totalPages);
+
+for (const page of arrayPages) {
+  if (String(page).includes("...")) {
+    element += `<span>${page}</span>`;
+  } else {
+    element += `<a href='${page}'>${page}</a>`;
+  }
+}
+
+paginate.innerHTML = element;
+
+console.log(arrayPages);
