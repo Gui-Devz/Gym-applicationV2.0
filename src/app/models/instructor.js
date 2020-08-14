@@ -114,7 +114,7 @@ module.exports = {
 
     let query = "",
       filterQuery = "",
-      totalCount = "(SELECT count(*) FROM instructors) AS instructors_count";
+      totalCount = "(SELECT count(*) FROM instructors) AS total";
 
     if (filter) {
       filterQuery = `
@@ -123,7 +123,7 @@ module.exports = {
 
       totalCount = `
         (SELECT count(*) FROM instructors
-        ${filterQuery}) AS instructors_count`;
+        ${filterQuery}) AS total`;
     }
     query = `
       SELECT instructors.*, count(members) AS members_count,
