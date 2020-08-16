@@ -250,6 +250,10 @@ input::placeholder {
   background-color: var(--primary-color);
 }
 
+.button:hover {
+  filter: brightness(1.1);
+}
+
 .item .button {
   text-align: center;
 
@@ -278,13 +282,15 @@ input::placeholder {
   margin-top: -5px;
 }
 
-/* Table style MEMBERS*/
+/* Table style INDEX*/
 
 .table-container {
-  display: block;
+  display: grid;
   padding: 30px;
 
   box-sizing: border-box;
+
+  grid-template: 64px 1fr 16px / 1fr;
 }
 
 table {
@@ -363,7 +369,11 @@ table tbody tr td:last-child a:hover,
 
 .table-container > a {
   margin-bottom: 16px;
-  display: inline-block;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  font-weight: bold;
 }
 
 table tbody tr {
@@ -372,6 +382,7 @@ table tbody tr {
 
 tbody tr td:first-child {
   display: grid;
+  padding: 5px;
   grid-template-columns: 64px 1fr;
 
   align-items: center;
@@ -406,9 +417,7 @@ table thead tr .attendance,
 .head-index {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
-
-  margin-bottom: 32px;
+  align-items: flex-start;
 }
 
 .head-index .button {
@@ -452,4 +461,30 @@ table thead tr .attendance,
 .activities-member {
   height: 70px;
   text-align: initial;
+}
+
+/* PAGINATION STYLE */
+
+.paginate {
+  display: grid;
+
+  grid-template-rows: 1fr;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.paginate div a,
+.paginate div span {
+  margin-right: 8px;
+  color: var(--primary-color);
+  text-decoration: none;
+
+  font-size: 16px;
+}
+
+.paginate div a:hover {
+  filter: brightness(0.3);
+
+  border-bottom: 1px solid var(--primary-color);
 }
