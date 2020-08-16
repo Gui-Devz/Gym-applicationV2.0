@@ -34,6 +34,7 @@ const paginate = document.querySelector(".paginate");
 
 const totalPages = +paginate.dataset.total;
 const pages = +paginate.dataset.page;
+const filter = paginate.dataset.filter;
 
 let element = "";
 let arrayPages = pagination(pages, totalPages);
@@ -42,7 +43,7 @@ for (const page of arrayPages) {
   if (String(page).includes("...")) {
     element += `<span>${page}</span>`;
   } else {
-    element += `<a href='${page}'>${page}</a>`;
+    element += `<a href='/instructors?page=${page}&filter=${filter}'>${page}</a>`;
   }
 }
 
