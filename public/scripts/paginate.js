@@ -36,17 +36,30 @@ const totalPages = +paginate.dataset.total;
 const pages = +paginate.dataset.page;
 const filter = paginate.dataset.filter;
 
+const newDiv = document.createElement("div");
 let element = "";
 let arrayPages = pagination(pages, totalPages);
 
-for (const page of arrayPages) {
-  if (String(page).includes("...")) {
-    element += `<span>${page}</span>`;
-  } else {
-    element += `<a href='/instructors?page=${page}&filter=${filter}'>${page}</a>`;
+if (window.location.href.includes("instructors")) {
+  for (const page of arrayPages) {
+    if (String(page).includes("...")) {
+      element += `<span>${page}</span>`;
+    } else {
+      element += `<a href='/instructors?page=${page}&filter=${filter}'>${page}</a>`;
+    }
+  }
+} else {
+  for (const page of arrayPages) {
+    if (String(page).includes("...")) {
+      element += `<span>${page}</span>`;
+    } else {
+      element += `<a href='/members?page=${page}&filter=${filter}'>${page}</a>`;
+    }
   }
 }
 
-paginate.innerHTML = element;
+newDiv.innerHTML = element;
+
+paginate.appendChild(newDiv);
 
 console.log(arrayPages);

@@ -4,13 +4,32 @@ const { merge } = require("../../routes");
 
 module.exports = {
   index(req, res) {
-    Member.all(function (members) {
-      for (const member of members) {
-        member.age = age(member.birth);
-      }
+    let { filter, limit, page } = req.query;
 
-      return res.render("members/index", { members });
-    });
+    page = page || 1;
+    limit = limit || 3;
+
+    let offset = limit * (page - 1);
+
+    let args = {
+      filter,
+      limit,
+      offset,
+      callback(members) {
+        const paginationData = {
+          totalPages: Math.ceil(members[0].total / limit),
+          page: Number(page),
+        };
+
+        return res.render("members/index", {
+          members,
+          filter,
+          paginationData,
+        });
+      },
+    };
+
+    Member.paginate(args);
   },
 
   create(req, res) {

@@ -1,5 +1,6 @@
 const db = require("../../config/db");
 const { age, formatBrowser } = require("../../lib/utils");
+const { merge } = "../../routes.js";
 
 module.exports = {
   all(callback) {
@@ -107,6 +108,30 @@ module.exports = {
 
     db.query(query, function (err, results) {
       if (err) throw `Database Error! ${err}`;
+
+      callback(results.rows);
+    });
+  },
+  paginate(args) {
+    let { filter, limit, offset, callback } = args;
+
+    let query = "",
+      filterQuery = "";
+
+    if (filter) {
+      filterQuery = `
+        WHERE members.name ILIKE '%${filter}%' OR
+        members.services ILIKE '%${filter}%'`;
+    }
+
+    query = `
+      SELECT members.*, (SELECT count(*) FROM members) AS total FROM members
+      ${filterQuery}
+      ORDER BY members.id DESC
+      LIMIT ${limit} OFFSET ${offset}`;
+
+    db.query(query, function (err, results) {
+      if (err) throw `Database ERROR ${err}`;
 
       callback(results.rows);
     });
